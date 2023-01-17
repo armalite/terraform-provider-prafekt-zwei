@@ -26,14 +26,13 @@ type ReadFlowResponse struct {
 
 
 
-func CreateFlow(posturl string, flowName string) CreateFlowResponse { 
+func CreateFlow(accountid string, workspaceid string, flowName string) CreateFlowResponse { 
+	post_url := prefect_base_url + "accounts/" + accountid + "/workspaces/" + workspaceid + "/flows/"
 	var jsonStr = []byte(fmt.Sprintf(`{"name":"%s"}`, flowName))
-	post_url := posturl + "flows/"
     req, err := http.NewRequest("POST", post_url, bytes.NewBuffer(jsonStr))
     req.Header.Set("Authorization", fmt.Sprintf("Bearer %s", prefect_api_key))
     req.Header.Set("Content-Type", "application/json")
 
-    client := &http.Client{}
     resp, err := client.Do(req)
     if err != nil {
 		log.Fatal(err.Error())
@@ -47,13 +46,12 @@ func CreateFlow(posturl string, flowName string) CreateFlowResponse {
 	return response
 }
 
-func ReadFlow(posturl string, flowId string) ReadFlowResponse {
-	post_url := posturl + fmt.Sprintf("flows/%s", flowId)
+func ReadFlow(accountid string, workspaceid string, flowId string) ReadFlowResponse {
+	post_url := prefect_base_url + "accounts/" + accountid + "/workspaces/" + workspaceid + fmt.Sprintf("/flows/%s", flowId)
 	req, err := http.NewRequest("GET", post_url, nil)
     req.Header.Set("Authorization", fmt.Sprintf("Bearer %s", prefect_api_key))
     req.Header.Set("Content-Type", "application/json")
 	
-	client := &http.Client{}
     resp, err := client.Do(req)
     if err != nil {
 		log.Fatal(err.Error())
@@ -68,13 +66,12 @@ func ReadFlow(posturl string, flowId string) ReadFlowResponse {
 	return response
 }
 
-func ReadFlowByName(posturl string, name string) ReadFlowResponse {
-	post_url := posturl + fmt.Sprintf("flows/name/%s", name)
+func ReadFlowByName(accountid string, workspaceid string, name string) ReadFlowResponse {
+	post_url := prefect_base_url + "accounts/" + accountid + "/workspaces/" + workspaceid + fmt.Sprintf("/flows/name/%s", name)
 	req, err := http.NewRequest("GET", post_url, nil)
     req.Header.Set("Authorization", fmt.Sprintf("Bearer %s", prefect_api_key))
     req.Header.Set("Content-Type", "application/json")
 	
-	client := &http.Client{}
     resp, err := client.Do(req)
     if err != nil {
 		log.Fatal(err.Error())

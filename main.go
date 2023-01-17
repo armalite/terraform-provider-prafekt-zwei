@@ -31,22 +31,21 @@ var (
 	// commit  string = ""
 )
 
-var prefect_base_url = "https://api.prefect.cloud/api/" 
 var prefect_account_id = os.Getenv("PREFECT_ACCOUNT_ID")
 var prefect_workspace_id = os.Getenv("PREFECT_WORKSPACE_ID")
 
 func main() {
 
-	post_url := prefect_base_url + "accounts/" + prefect_account_id + "/workspaces/" + prefect_workspace_id + "/"
+	//post_url := prefect_base_url + "accounts/" + prefect_account_id + "/workspaces/" + prefect_workspace_id + "/"
 	var create_flow_response rest.CreateFlowResponse
-	create_flow_response = rest.CreateFlow(post_url, "go-with-no-flow")
+	create_flow_response = rest.CreateFlow(prefect_account_id, prefect_workspace_id, "go-with-no-flow")
 	
 	var read_flow_response rest.ReadFlowResponse
-	read_flow_response = rest.ReadFlow(post_url, create_flow_response.Id)
+	read_flow_response = rest.ReadFlow(prefect_account_id, prefect_workspace_id, create_flow_response.Id)
 	fmt.Println("Read flow name:", read_flow_response.Name)
 
 	var read_flow_by_name_response rest.ReadFlowResponse
-	read_flow_by_name_response = rest.ReadFlowByName(post_url, read_flow_response.Name)
+	read_flow_by_name_response = rest.ReadFlowByName(prefect_account_id, prefect_workspace_id, read_flow_response.Name)
 	fmt.Println("Read flow by name response:", read_flow_by_name_response)
 	//rest.read
 

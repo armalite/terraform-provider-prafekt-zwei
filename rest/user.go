@@ -27,7 +27,6 @@ func ReadUserById(posturl string, userid string) ReadUserResponse {
     req.Header.Set("Authorization", fmt.Sprintf("Bearer %s", prefect_api_key))
     req.Header.Set("Content-Type", "application/json")
 	
-	client := &http.Client{}
     resp, err := client.Do(req)
     if err != nil {
 		log.Fatal(err.Error())
@@ -41,3 +40,5 @@ func ReadUserById(posturl string, userid string) ReadUserResponse {
 
 	return response
 }
+
+//func CreateUserAPIKey(posturl)
