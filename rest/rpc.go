@@ -53,7 +53,7 @@ func CreateFlow(posturl string, flowName string) CreateFlowResponse {
 }
 
 func ReadFlow(posturl string, flowId string) ReadFlowResponse {
-	post_url := posturl + fmt.Sprintf("/flows/%s", flowId)
+	post_url := posturl + fmt.Sprintf("flows/%s", flowId)
 	req, err := http.NewRequest("GET", post_url, nil)
     req.Header.Set("Authorization", fmt.Sprintf("Bearer %s", prefect_api_key))
     req.Header.Set("Content-Type", "application/json")
