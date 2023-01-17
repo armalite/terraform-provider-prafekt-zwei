@@ -30,7 +30,7 @@ type CreateUserAPIKeyResponse struct {
 }
 
 
-func ReadUserById(posturl string, userid string) ReadUserResponse { 
+func ReadUserById(userid string) ReadUserResponse { 
 	post_url := prefect_base_url + fmt.Sprintf("users/%s", userid)
 	req, err := http.NewRequest("GET", post_url, nil)
     req.Header.Set("Authorization", fmt.Sprintf("Bearer %s", prefect_api_key))
