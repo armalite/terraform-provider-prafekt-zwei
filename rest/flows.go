@@ -25,7 +25,6 @@ type ReadFlowResponse struct {
 }
 
 
-
 func CreateFlow(accountid string, workspaceid string, flowName string) CreateFlowResponse { 
 	post_url := prefect_base_url + "accounts/" + accountid + "/workspaces/" + workspaceid + "/flows/"
 	var jsonStr = []byte(fmt.Sprintf(`{"name":"%s"}`, flowName))
