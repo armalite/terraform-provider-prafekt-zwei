@@ -41,7 +41,7 @@ func (tr *HTTPTransport) RoundTrip(req *http.Request) (*http.Response, error) {
 }
 
 
-func PrefectClient(ctx context.Context, apiKey string) (Client, error) {
+func PrefectClient(ctx context.Context, apiKey string) Client {
 
 	tr := HTTPTransport{
 		RTripper: http.DefaultTransport,
@@ -58,5 +58,5 @@ func PrefectClient(ctx context.Context, apiKey string) (Client, error) {
 	var client Client
 	client.HTTPClient = http_client
 
-	return client, nil
+	return client
 }
