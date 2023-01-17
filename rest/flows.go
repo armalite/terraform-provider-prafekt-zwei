@@ -5,7 +5,6 @@ import (
 	"net/http"
 	"bytes"
     "fmt"
-	"os"
 	"log"
 	"encoding/json"
 )
@@ -25,7 +24,7 @@ type ReadFlowResponse struct {
 	Tags		[]string
 }
 
-var prefect_api_key = os.Getenv("PREFECT_API_KEY")
+
 
 func CreateFlow(posturl string, flowName string) CreateFlowResponse { 
 	var jsonStr = []byte(fmt.Sprintf(`{"name":"%s"}`, flowName))
