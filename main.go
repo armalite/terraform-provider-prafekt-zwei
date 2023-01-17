@@ -43,7 +43,11 @@ func main() {
 	
 	var read_flow_response rest.ReadFlowResponse
 	read_flow_response = rest.ReadFlow(post_url, create_flow_response.Id)
-	fmt.Println(read_flow_response.Name)
+	fmt.Println("Read flow name:", read_flow_response.Name)
+
+	var read_flow_by_name_response rest.ReadFlowResponse
+	read_flow_by_name_response = rest.ReadFlowByName(post_url, read_flow_response.Name)
+	fmt.Println("Read flow by name response:", read_flow_by_name_response)
 	//rest.read
 
 	/* 
