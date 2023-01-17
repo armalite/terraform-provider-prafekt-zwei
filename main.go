@@ -40,7 +40,10 @@ func main() {
 	post_url := prefect_base_url + "accounts/" + prefect_account_id + "/workspaces/" + prefect_workspace_id + "/"
 	var create_flow_response rest.CreateFlowResponse
 	create_flow_response = rest.CreateFlow(post_url, "go-with-no-flow")
-	fmt.Println(create_flow_response.Id)
+	
+	var read_flow_response rest.ReadFlowResponse
+	read_flow_response = rest.ReadFlow(post_url, create_flow_response.Id)
+	fmt.Println(read_flow_response.Name)
 	//rest.read
 
 	/* 

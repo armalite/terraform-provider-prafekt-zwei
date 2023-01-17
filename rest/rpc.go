@@ -71,8 +71,7 @@ func ReadFlow(posturl string, flowId string) ReadFlowResponse {
 	
     body, _ := ioutil.ReadAll(resp.Body)
 	json.Unmarshal(body, &response)
-	fmt.Println("Created flow id:", response.Id)
-	fmt.Println("Created flow name:", response.Name)
+	fmt.Println("Read flow name:", response.Name)
 
 	return response
 }
