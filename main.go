@@ -10,6 +10,7 @@ import (
 import (
 	"os"
 	"terraform-provider-prafekt-zwei/rest"
+	"fmt"
 )
 // Run "go generate" to format example terraform files and generate the docs for the registry/website
 
@@ -37,7 +38,9 @@ var prefect_workspace_id = os.Getenv("PREFECT_WORKSPACE_ID")
 func main() {
 
 	post_url := prefect_base_url + "accounts/" + prefect_account_id + "/workspaces/" + prefect_workspace_id + "/"
-	rest.CreateFlow(post_url, "go-with-no-flow")
+	var create_flow_response rest.CreateFlowResponse
+	create_flow_response = rest.CreateFlow(post_url, "go-with-no-flow")
+	fmt.Println(create_flow_response.Id)
 	//rest.read
 
 	/* 

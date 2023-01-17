@@ -11,15 +11,23 @@ import (
 )
 
 type CreateFlowResponse struct {
-	id 			string
-	created		string
-	updated		string
-	name 		string
+	Id 			string
+	Created		string
+	Updated		string
+	Name 		string
+}
+
+type ReadFlowResponse struct {
+	Id 			string
+	Created		string
+	Updated		string
+	Name 		string
+	Tags		[]string
 }
 
 var prefect_api_key = os.Getenv("PREFECT_API_KEY")
 
-func CreateFlow(posturl string, flowName string) []byte { 
+func CreateFlow(posturl string, flowName string) CreateFlowResponse { 
 	var jsonStr = []byte(fmt.Sprintf(`{"name":"%s"}`, flowName))
 	post_url := posturl + "flows/"
     req, err := http.NewRequest("POST", post_url, bytes.NewBuffer(jsonStr))
@@ -36,15 +44,15 @@ func CreateFlow(posturl string, flowName string) []byte {
 	var response CreateFlowResponse
 
     fmt.Println("response Status:", resp.Status)
-    fmt.Println("response Headers:", resp.Header)
+	
     body, _ := ioutil.ReadAll(resp.Body)
 	json.Unmarshal(body, &response)
-    fmt.Println("response Body:", string(body))
-	fmt.Println("response parsed:", response)
-	return body
+	fmt.Println("Created flow id:", response.Id)
+	fmt.Println("Created flow name:", response.Name)
+	return response
 }
 
-func ReadFlow(posturl string, flowId string) []byte {
+func ReadFlow(posturl string, flowId string) ReadFlowResponse {
 	post_url := posturl + fmt.Sprintf("/flows/%s", flowId)
 	req, err := http.NewRequest("GET", post_url, nil)
     req.Header.Set("Authorization", fmt.Sprintf("Bearer %s", prefect_api_key))
@@ -57,10 +65,14 @@ func ReadFlow(posturl string, flowId string) []byte {
     }
     defer resp.Body.Close()
 
-    fmt.Println("response Status:", resp.Status)
-    fmt.Println("response Headers:", resp.Header)
-    body, _ := ioutil.ReadAll(resp.Body)
-    fmt.Println("response Body:", string(body))
+    var response ReadFlowResponse
 
-	return body
+    fmt.Println("response Status:", resp.Status)
+	
+    body, _ := ioutil.ReadAll(resp.Body)
+	json.Unmarshal(body, &response)
+	fmt.Println("Created flow id:", response.Id)
+	fmt.Println("Created flow name:", response.Name)
+
+	return response
 }
