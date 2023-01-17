@@ -25,4 +25,4 @@ type Client struct {
 
 var prefect_api_key = os.Getenv("PREFECT_API_KEY")
 var client = &http.Client{}
-var prefect_base_url = "https://api.prefect.cloud/api/" 
+const prefect_base_url = "https://api.prefect.cloud/api/" 
