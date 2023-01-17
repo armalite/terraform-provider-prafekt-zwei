@@ -36,8 +36,9 @@ var prefect_workspace_id = os.Getenv("PREFECT_WORKSPACE_ID")
 
 func main() {
 
-	post_url := prefect_base_url + "accounts/" + prefect_account_id + "/workspaces/" + prefect_workspace_id + "/flows/"
-	rest.CreateFlow("go-with-no-flow", post_url)
+	post_url := prefect_base_url + "accounts/" + prefect_account_id + "/workspaces/" + prefect_workspace_id + "/"
+	rest.CreateFlow(post_url, "go-with-no-flow")
+	//rest.read
 
 	/* 
 	opts := providerserver.ServeOpts{
