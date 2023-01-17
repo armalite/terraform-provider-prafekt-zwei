@@ -26,7 +26,7 @@ type Client struct {
 }
 
 var prefect_api_key = os.Getenv("PREFECT_API_KEY")
-var client = &http.Client{}
+//var client = &http.Client{}
 const prefect_base_url = "https://api.prefect.cloud/api/" 
 
 
@@ -49,7 +49,6 @@ func PrefectClient(ctx context.Context, apiKey string) Client {
 	}
 
 	tr.Header.Add("Authorization", fmt.Sprintf("Bearer %s", apiKey))
-
 	http_client := http.Client{Transport: &tr}
 
 	// TODO: Get current user

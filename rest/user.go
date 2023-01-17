@@ -7,6 +7,7 @@ import (
     "fmt"
 	"log"
 	"encoding/json"
+	"context"
 )
 
 type ReadUserResponse struct {
@@ -30,13 +31,13 @@ type CreateUserAPIKeyResponse struct {
 }
 
 
-func ReadUserById(userid string) ReadUserResponse { 
+func ReadUserById(ctx context.Context, client Client, userid string) ReadUserResponse { 
 	post_url := prefect_base_url + fmt.Sprintf("users/%s", userid)
 	req, err := http.NewRequest("GET", post_url, nil)
     req.Header.Set("Authorization", fmt.Sprintf("Bearer %s", prefect_api_key))
     req.Header.Set("Content-Type", "application/json")
 	
-    resp, err := client.Do(req)
+    resp, err := client.HTTPClient.Do(req)
     if err != nil {
 		log.Fatal(err.Error())
     }
@@ -50,14 +51,14 @@ func ReadUserById(userid string) ReadUserResponse {
 	return response
 }
 
-func CreateUserAPIKey(userid string) CreateUserAPIKeyResponse {
+func CreateUserAPIKey(ctx context.Context, client Client, userid string) CreateUserAPIKeyResponse {
 
 	post_url := prefect_base_url + fmt.Sprintf("users/%s/api_keys", userid)
 	req, err := http.NewRequest("GET", post_url, nil)
     req.Header.Set("Authorization", fmt.Sprintf("Bearer %s", prefect_api_key))
     req.Header.Set("Content-Type", "application/json")
 	
-    resp, err := client.Do(req)
+    resp, err := client.HTTPClient.Do(req)
     if err != nil {
 		log.Fatal(err.Error())
     }
