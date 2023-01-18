@@ -21,7 +21,7 @@ type CreateWorkQueueResponse struct {
 }
 
 
-func CreateWorkQueue(ctx context.Context, client Client, accountid string, workspaceid string, name string, description string, is_paused string, concurrency_limit int, deploymentids []string, tags []string) CreateServiceAccountResponse { 
+func CreateWorkQueue(ctx context.Context, client Client, accountid string, workspaceid string, name string, description string, is_paused string, concurrency_limit int, deploymentids []string, tags []string) CreateWorkQueueResponse { 
 	post_url := prefect_base_url + "accounts/" + accountid + "/workspaces/" + workspaceid + "/work_queues/"
 
 	// TODO: Inject array of deployment ids and tags where provided
@@ -36,7 +36,7 @@ func CreateWorkQueue(ctx context.Context, client Client, accountid string, works
     }
     defer resp.Body.Close()
 
-	var response CreateServiceAccountResponse
+	var response CreateWorkQueueResponse
 
     body, _ := ioutil.ReadAll(resp.Body)
 	json.Unmarshal(body, &response)
