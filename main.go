@@ -41,7 +41,7 @@ func main() {
 
 	var client rest.Client
 	client = rest.PrefectClient(ctx, os.Getenv("PREFECT_API_KEY"))
-	//post_url := prefect_base_url + "accounts/" + prefect_account_id + "/workspaces/" + prefect_workspace_id + "/"
+
 	var create_flow_response rest.CreateFlowResponse
 	create_flow_response = rest.CreateFlow(ctx, client, prefect_account_id, prefect_workspace_id, "go-with-the-flow")
 	
@@ -52,9 +52,7 @@ func main() {
 	var read_flow_by_name_response rest.ReadFlowResponse
 	read_flow_by_name_response = rest.ReadFlowByName(ctx, client, prefect_account_id, prefect_workspace_id, read_flow_response.Name)
 	fmt.Println("Read flow by name response:", read_flow_by_name_response)
-	//rest.read
 
-	// ctx context.Context, client Client, accountid string, workspaceid string, name string, description string, is_paused string, concurrency_limit int, deploymentids []string, tags []string
 	var create_work_queue_response rest.CreateWorkQueueResponse
 	create_work_queue_response = rest.CreateWorkQueue(ctx, client, prefect_account_id, prefect_workspace_id, "such-a-cool-work-queue", "Work queue created via api", "false", 0, []string{}, []string{})
 	fmt.Println("Create work queue response:", create_work_queue_response)
