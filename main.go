@@ -43,7 +43,7 @@ func main() {
 	client = rest.PrefectClient(ctx, os.Getenv("PREFECT_API_KEY"))
 	//post_url := prefect_base_url + "accounts/" + prefect_account_id + "/workspaces/" + prefect_workspace_id + "/"
 	var create_flow_response rest.CreateFlowResponse
-	create_flow_response = rest.CreateFlow(ctx, client, prefect_account_id, prefect_workspace_id, "go-with-no-flow")
+	create_flow_response = rest.CreateFlow(ctx, client, prefect_account_id, prefect_workspace_id, "go-with-the-flow")
 	
 	var read_flow_response rest.ReadFlowResponse
 	read_flow_response = rest.ReadFlow(ctx, client, prefect_account_id, prefect_workspace_id, create_flow_response.Id)

@@ -19,7 +19,7 @@ type Workspace struct {
 	Name	string
 }
 
-// Prefect 2 HTTP Client with Workspace included
+// Prefect 2 HTTP Client 
 type Client struct {
 	HTTPClient http.Client
 	//Workspace Workspace
