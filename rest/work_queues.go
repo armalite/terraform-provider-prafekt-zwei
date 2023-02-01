@@ -20,6 +20,16 @@ type CreateWorkQueueResponse struct {
 	Concurrency_Limit 	int
 }
 
+type ReadWorkQueueResponse struct {
+	Id 					string
+	Created 			string
+	Updated				string
+	Name 				string
+	Description 		string
+	Is_Paused 			bool
+	Concurrency_Limit 	int
+}
+
 
 func CreateWorkQueue(ctx context.Context, client Client, accountid string, workspaceid string, name string, description string, is_paused string, concurrency_limit int, deploymentids []string, tags []string) CreateWorkQueueResponse { 
 	post_url := prefect_base_url + "accounts/" + accountid + "/workspaces/" + workspaceid + "/work_queues/"
@@ -37,6 +47,27 @@ func CreateWorkQueue(ctx context.Context, client Client, accountid string, works
     defer resp.Body.Close()
 
 	var response CreateWorkQueueResponse
+
+    body, _ := ioutil.ReadAll(resp.Body)
+	json.Unmarshal(body, &response)
+
+	return response
+}
+
+
+func ReadWorkQueue(ctx context.Context, client Client, accountid string, workspaceid string, workqueueid string) ReadWorkQueueResponse { 
+	post_url := prefect_base_url + "accounts/" + accountid + "/workspaces/" + workspaceid + "/work_queues/" + workqueueid
+	
+    req, err := http.NewRequest("GET", post_url, nil)
+    req.Header.Set("Content-Type", "application/json")
+	
+    resp, err := client.HTTPClient.Do(req)
+    if err != nil {
+		log.Fatal(err.Error())
+    }
+    defer resp.Body.Close()
+
+	var response ReadWorkQueueResponse
 
     body, _ := ioutil.ReadAll(resp.Body)
 	json.Unmarshal(body, &response)
