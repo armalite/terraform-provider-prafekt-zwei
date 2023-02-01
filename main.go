@@ -54,6 +54,11 @@ func main() {
 	fmt.Println("Read flow by name response:", read_flow_by_name_response)
 	//rest.read
 
+	// ctx context.Context, client Client, accountid string, workspaceid string, name string, description string, is_paused string, concurrency_limit int, deploymentids []string, tags []string
+	var create_work_queue_response rest.CreateWorkQueueResponse
+	create_work_queue_response = rest.CreateWorkQueue(ctx, client, prefect_account_id, prefect_workspace_id, "such-a-cool-work-queue", "Work queue created via api", "false", 0, []string{}, []string{})
+	fmt.Println("Create work queue response:", create_work_queue_response)
+
 	/* 
 	opts := providerserver.ServeOpts{
 		Address: "registry.terraform.io/Armalite/prafekt-zwei",
