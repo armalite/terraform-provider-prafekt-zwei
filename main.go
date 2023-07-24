@@ -9,7 +9,7 @@ import (
 */
 import (
 	"os"
-	"terraform-provider-prafekt-zwei/rest"
+	"terraform-provider-prafekt-zwei/client"
 	"fmt"
 	"context"
 )
@@ -39,24 +39,27 @@ func main() {
 
 	ctx := context.Background()
 
-	var client rest.Client
-	client = rest.PrefectClient(ctx, os.Getenv("PREFECT_API_KEY"))
+	var client client.Client
+	client = client.PrefectClient(ctx, os.Getenv("PREFECT_API_KEY"))
 
-	var create_flow_response rest.CreateFlowResponse
-	create_flow_response = rest.CreateFlow(ctx, client, prefect_account_id, prefect_workspace_id, "go-with-the-flow")
+	var create_flow_response client.CreateFlowResponse
+	create_flow_response = client.CreateFlow(ctx, client, prefect_account_id, prefect_workspace_id, "go-with-the-flow")
 	
-	var read_flow_response rest.ReadFlowResponse
-	read_flow_response = rest.ReadFlow(ctx, client, prefect_account_id, prefect_workspace_id, create_flow_response.Id)
+	var read_flow_response client.ReadFlowResponse
+	read_flow_response = client.ReadFlow(ctx, client, prefect_account_id, prefect_workspace_id, create_flow_response.Id)
 	fmt.Println("Read flow name:", read_flow_response.Name)
 
-	var read_flow_by_name_response rest.ReadFlowResponse
-	read_flow_by_name_response = rest.ReadFlowByName(ctx, client, prefect_account_id, prefect_workspace_id, read_flow_response.Name)
+	var read_flow_by_name_response client.ReadFlowResponse
+	read_flow_by_name_response = client.ReadFlowByName(ctx, client, prefect_account_id, prefect_workspace_id, read_flow_response.Name)
 	fmt.Println("Read flow by name response:", read_flow_by_name_response)
 
-	var create_work_queue_response rest.CreateWorkQueueResponse
-	create_work_queue_response = rest.CreateWorkQueue(ctx, client, prefect_account_id, prefect_workspace_id, "such-a-cool-work-queue", "Work queue created via api", "false", 0, []string{}, []string{})
+	var create_work_queue_response client.CreateWorkQueueResponse
+	create_work_queue_response = client.CreateWorkQueue(ctx, client, prefect_account_id, prefect_workspace_id, "such-a-cool-work-queue", "Work queue created via api", "false", 0, []string{}, []string{})
 	fmt.Println("Create work queue response:", create_work_queue_response)
 
+	var read_work_queue_response client.ReadWorkQueueResponse
+	read_work_queue_response = client.ReadWorkQueue(ctx, client, prefect_account_id, prefect_workspace_id, create_work_queue_response.Id)
+	fmt.Println("Read work queue response:", read_work_queue_response)
 	/* 
 	opts := providerserver.ServeOpts{
 		Address: "registry.terraform.io/Armalite/prafekt-zwei",
